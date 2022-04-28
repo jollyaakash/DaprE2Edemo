@@ -1,0 +1,22 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: order-pub-sub
+  namespace: default
+spec:
+  type: pubsub.iotedgemqtt
+  version: v1
+  metadata:
+  - name: url
+    value: "tcp://admin:public@mosquitto:1883"
+  - name: qos
+    value: 1
+  - name: retain
+    value: "false"
+  - name: cleanSession
+    value: "true"
+  - name: backOffMaxRetries
+    value: "0"
+scopes:
+  - orderprocessing
+  - checkout

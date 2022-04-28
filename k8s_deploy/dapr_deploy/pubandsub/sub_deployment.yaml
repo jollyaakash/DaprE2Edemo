@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dapr-subscriber
+  labels:
+    app: subscriber
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: subscriber
+  template:
+    metadata:
+      labels:
+        app: subscriber
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "orderprocessing"
+        dapr.io/app-port: "6001"
+        dapr.io/app-protocol: "http"
+    spec:
+      containers:
+      - name: subscriber
+        image: dmqttdemo.azurecr.io/dapr/pubsubexample_sub:latest
