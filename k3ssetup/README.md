@@ -1,19 +1,16 @@
+## SETUP 
+
+#### Create SSH Keys
 ssh-keygen -m PEM -t rsa -b 4096 -f ubuntuvm
 mv ubuntuvm ubuntuvm.pub ~/.ssh/
 eval `ssh-agent -s`
 ssh-add ~/.ssh/ubuntuvm
 
-
-VM size - Standard_D2a_V4
-
-Create VNET -
-az network vnet create --name e2edemovnet --resource-group e2edemotues
-
 ### Create Main node with empty vnet
 
 az vm create --resource-group e2edemo --name mainnode --image UbuntuLTS --admin-usern
 ame aakashm --ssh-key-values ~/.ssh/ubuntuvm.pub --location eastus --size Standard_D4as_v4 --public-ip-sku Standar
-d --nsg-rule none --vnet-name e2edemovnet
+d --nsg-rule **none** --vnet-name **e2edemovnet** [ Vnet name can be anything ]
 
 #### Get VNET id for other VMs
 az network vnet subnet show -g e2edemo --name mainnodeSubnet --vnet-name e2edemovnet --query id -o tsv
@@ -76,5 +73,6 @@ sudo rm -rf /var/lib/rancher/
 
 az k8s-extension create -g aajolly --cluster-name e2eDemoArc --cluster-type connectedClusters --name E4K --extension-type microsoft.azedge.mqtt --scope cluster --release-train dev --version 0.1.0
 
-### Uninstall Extension 
-az k8s-extension delete -g aajolly --cluster-name e2eDemoAr
+## HELP pages
+
+https://computingforgeeks.com/install-kubernetes-on-ubuntu-using-k3s/
