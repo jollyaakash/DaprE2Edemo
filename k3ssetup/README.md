@@ -60,7 +60,7 @@ sudo systemctl start docker && sudo systemctl enable docker
 
 #### Main node 
 ```
-curl -sfL https://get.k3s.io | sh -s - server --docker --tls-san 10.0.0.7
+curl -sfL https://get.k3s.io | sh -s - server --docker --tls-san 10.0.0.7 [ --tls-san flag is used for adding a new hostname or IP for talking to api server]
 sudo cat /var/lib/rancher/k3s/server/node-token
 ```
 
@@ -78,7 +78,9 @@ ssh -i ~/.ssh/ubuntuvm aakash@ip_address
 
 ## K3s file path 
 /etc/rancher/k3s/k3s.yaml
+```
 scp -i ~/.ssh/ubuntuvm aakashm@20.121.254.241:/etc/rancher/k3s/k3s.yaml dest_file_path
+```
 
 ## Uninstall 
 sudo /usr/local/bin/k3s-agent-uninstall.sh
