@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"net"
 	"strconv"
 	"time"
 
@@ -17,13 +16,13 @@ var (
 	PUBSUB_TOPIC = "orders"
 )
 
-func testSpiffe(addr string) {
+func testSpiffe() {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	clientOptions := workloadapi.WithClientOptions(workloadapi.WithAddr(addr))
+	clientOptions := workloadapi.WithClientOptions(workloadapi.WithAddr("unix:///run/iotedge/sockets/workloadapi.sock"))
 
-	fmt.Printf("CLIENT OPTIONS")
+	fmt.Printf("CLIENT OPTIONS\n")
 
 	jwtSource, err := workloadapi.NewJWTSource(
 		ctx,
@@ -31,7 +30,7 @@ func testSpiffe(addr string) {
 	)
 
 	if err != nil {
-		fmt.Printf("PANIC FROM NewJWTSource")
+		fmt.Printf("PANIC FROM NewJWTSource\n")
 		panic(err)
 	} else {
 		fmt.Println("successfully got SPIFFE ID")
@@ -54,15 +53,7 @@ func testSpiffe(addr string) {
 }
 
 func main() {
-	listener, err := net.Dial("unix", "/run/iotedge/sockets/workloadapi.sock")
-	if err != nil {
-		panic(err)
-	}
-
-	addr := fmt.Sprintf("%s://%s", listener.RemoteAddr().Network(), listener.RemoteAddr().String())
-	fmt.Printf("%s", addr)
-
-	testSpiffe(addr)
+	testSpiffe()
 
 	// client, err := dapr.NewClient()
 	// if err != nil {
