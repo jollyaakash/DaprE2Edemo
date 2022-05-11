@@ -5,10 +5,6 @@ fn main() {
     let client = WorkloadApiClient::new("unix:/run/iotedge/sockets/workloadapi.sock").unwrap();
     let spiffe_id = SpiffeId::try_from("spiffe://iotedge/my-service").unwrap();
 
-    let bundle = client.fetch_jwt_bundles().unwrap();
-
-    bundle.get_bundle(trust_domain)
-
     let target_audience = &["spiffe://iotedge/mqttbroker"];
     // fetch a jwt token for the provided SPIFFE-ID and with the target audience `service1.com`
     let jwt_svid = client.fetch_jwt_svid(target_audience, Some(&spiffe_id)).unwrap();
