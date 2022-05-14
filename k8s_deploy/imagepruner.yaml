@@ -1,0 +1,36 @@
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  namespace: default
+  name: docker-image-pruner
+spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+       maxUnavailable: 1
+  selector:
+    matchLabels:
+      name: docker-image-pruner
+  template:
+    metadata:
+      labels:
+        name: docker-image-pruner
+    spec:
+      containers:
+      - name: docker-image-pruner
+        image: dmqttdemo.azurecr.io/imagepruner:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: INFRA_IMAGE_PRUNER_FREQUENCY
+          value: "2m" 
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-sock-volume
+      volumes:
+      - name: docker-sock-volume
+        hostPath:
+          path: /var/run/docker.sock
+      tolerations:
+        #operator: "Exists" can tolerate ANY taint on a node. We want this daemonset to be run on each node
+        #Hence adding this toleration.
+      - operator: "Exists"
