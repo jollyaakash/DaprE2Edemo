@@ -4,7 +4,7 @@ metadata:
   name: order-pub-sub
   namespace: default
 spec:
-  type: pubsub.iotedgemqtt
+  type: pubsub.mqtt
   version: v1
   metadata:
   - name: url
