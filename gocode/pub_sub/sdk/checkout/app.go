@@ -21,7 +21,7 @@ func main() {
 	}
 	defer client.Close()
 	ctx := context.Background()
-	for i := 1; i <= 10; i++ {
+	for i := 1; i <= 1000; i++ {
 		order := `{"orderId":` + strconv.Itoa(i) + `}`
 
 		// Publish an event using Dapr pub/sub
@@ -31,6 +31,6 @@ func main() {
 
 		fmt.Println("Published data: ", order)
 
-		time.Sleep(1000)
+		time.Sleep(1 * time.Second)
 	}
 }
