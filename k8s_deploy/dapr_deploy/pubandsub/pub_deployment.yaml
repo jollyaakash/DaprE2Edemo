@@ -18,17 +18,12 @@ spec:
         dapr.io/app-id: "checkout"
         dapr.io/app-protocol: "http"
         dapr.io/log-level: "debug"
+        dapr.io/side-volume-mounts: "iotedge-spiffe-agent-socket=/home/nonroot/sockets/"
+        dapr.io/side-volume-mounts-read-write: "true"
     spec:
       containers:
       - name: publisher
         image: dmqttdemo.azurecr.io/dapr/pubsubexample_pub:latest
-        volumeMounts:
-          - name: iotedge-spiffe-agent-socket
-            mountPath: /run/iotedge/sockets/
-      initContainers:
-      - name: set-ownership
-        image: busybox:latest
-        command: ["sh", "-c", "chmod 666 /run/iotedge/sockets/workloadapi.sock"]
         volumeMounts:
           - name: iotedge-spiffe-agent-socket
             mountPath: /run/iotedge/sockets/

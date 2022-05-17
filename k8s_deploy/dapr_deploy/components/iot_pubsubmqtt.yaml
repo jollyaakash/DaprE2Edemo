@@ -8,7 +8,7 @@ spec:
   version: v1
   metadata:
   - name: url
-    value: "tcp://admin:public@mqttbroker:1883"
+    value: "tcp://mqttbroker:1883"
   - name: qos
     value: 1
   - name: retain
@@ -17,6 +17,8 @@ spec:
     value: "true"
   - name: backOffMaxRetries
     value: "0"
+  - name: spiffeSocketPath
+    value: "/home/nonroot/sockets/workloadapi.sock"
 scopes:
   - orderprocessing
   - checkout
