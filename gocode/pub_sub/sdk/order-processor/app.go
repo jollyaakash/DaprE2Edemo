@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -19,7 +17,6 @@ var sub = &common.Subscription{
 
 func main() {
 	s := daprd.NewService(":6001")
-	http.HandleFunc("/orders", handleRequest)
 	if err := s.AddTopicEventHandler(sub, eventHandler); err != nil {
 		log.Fatalf("error adding topic subscription: %v", err)
 	}
@@ -29,20 +26,6 @@ func main() {
 }
 
 func eventHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err error) {
-	fmt.Println("Subscriber received: ", e.Data)
+	log.Printf("Subscriber received message PubSubName: %s, Topic: %s, Message: %s", e.PubsubName, e.Topic, e.Data)
 	return false, nil
-}
-
-func handleRequest(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(200)
-	w.Header().Set("Content-Type", "application/json")
-	resp := map[string]string{
-		"message": "Status Ok",
-	}
-	jsonResp, err := json.Marshal(resp)
-	if err != nil {
-		log.Fatalf("Error happened in JSON marshal. Err: %s", err)
-	}
-	w.Write(jsonResp)
-	return
 }
