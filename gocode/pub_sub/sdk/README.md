@@ -9,6 +9,7 @@ Visit [this](https://docs.dapr.io/developing-applications/building-blocks/pubsub
 This quickstart includes two publisher:
 
 - Go client message generator `checkout` 
+- Go client message generator `bulkcheckout` 
 
 And one subscriber: 
  
@@ -16,7 +17,7 @@ And one subscriber:
 
 ### Run Go message subscriber with Dapr
 
-1. Navigate to the directory and install dependencies: 
+1. Navigate to the directory and build dependencies: 
 
 <!-- STEP
 name: Build Go file
