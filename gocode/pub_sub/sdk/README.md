@@ -6,7 +6,7 @@ Visit [this](https://docs.dapr.io/developing-applications/building-blocks/pubsub
 
 > **Note:** This example leverages the Dapr client SDK. 
 
-This quickstart includes one publisher:
+This quickstart includes two publisher:
 
 - Go client message generator `checkout` 
 
