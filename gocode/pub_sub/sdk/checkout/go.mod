@@ -1,6 +1,6 @@
 module dapr_example
 
-go 1.17
+go 1.18
 
 require (
 	github.com/dapr/go-sdk v1.2.0 // indirect
