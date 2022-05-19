@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mosquitto
+spec:
+  selector:
+    app: mosquitto
+  ports:
+  - port: 1883
+    name: listeningport
+    targetPort: 1883
+  - port: 9001
+    name: noideawhy
+    targetPort: 9001
