@@ -15,17 +15,33 @@ var sub = &common.Subscription{
 	Route:      "orders",
 }
 
+var bulksub = &common.Subscription{
+	PubsubName: "orderpubsub",
+	Topic:      "bulkorders",
+	Route:      "bulkorders",
+}
+
 func main() {
 	s := daprd.NewService(":6001")
 	if err := s.AddTopicEventHandler(sub, eventHandler); err != nil {
 		log.Fatalf("error adding topic subscription: %v", err)
 	}
+
+	if err := s.AddTopicEventHandler(bulksub, bulkEventHandler); err != nil {
+		log.Fatalf("error adding topic subscription: %v", err)
+	}
+
 	if err := s.Start(); err != nil && err != http.ErrServerClosed {
 		log.Fatalf("error listenning: %v", err)
 	}
 }
 
 func eventHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err error) {
+	log.Printf("Subscriber received message PubSubName: %s, Topic: %s, Message: %s", e.PubsubName, e.Topic, e.Data)
+	return false, nil
+}
+
+func bulkEventHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err error) {
 	log.Printf("Subscriber received message PubSubName: %s, Topic: %s, Message: %s", e.PubsubName, e.Topic, e.Data)
 	return false, nil
 }
