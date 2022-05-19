@@ -1,0 +1,51 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mqttbroker
+spec:
+  ports:
+    - name: mqtt
+      port: 1883
+      targetPort: 1883
+      protocol: TCP
+  selector:
+    app: mqttbroker
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mqttbroker
+  labels:
+    app: mqttbroker
+spec:
+  selector:
+    matchLabels:
+      app: mqttbroker
+  template:
+    metadata:
+      labels:
+        app: mqttbroker
+    spec:
+      containers:
+        - name: mqttbroker
+          image: dmqttdemo.azurecr.io/single-broker:anycred
+          ports:
+            - containerPort: 1883
+          volumeMounts:
+            - name: iotedge-spiffe-agent-socket
+              mountPath: /run/iotedge/sockets/
+      initContainers:
+        - name: spiffe-workload-socket
+          image: dmqttdemo.azurecr.io/single-broker-spiffe-init:latest
+          env:
+          - name: SPIFFE_ENABLED
+            value: "true"
+          volumeMounts:
+            - name: iotedge-spiffe-agent-socket
+              mountPath: /run/iotedge/sockets/              
+      volumes:
+        - name: iotedge-spiffe-agent-socket
+          hostPath:
+            path: /run/iotedge/sockets/
+            type: DirectoryOrCreate
