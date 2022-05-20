@@ -29,7 +29,7 @@ identity manager provides - agent, mqttbroker, publisher, bulkpublisher, subscri
 helm uninstall spiffe
 kubectl delete namespace spiffe
 ```
-### Install DAPR with MQTTE4K component
+### Install DAPR with MQTTE4K component bits
 
 ```
 helm repo add dapr https://dapr.github.io/helm-charts/
@@ -40,7 +40,7 @@ export DAPR_NAMESPACE=dapr-system
 helm install $DAPR_RELEASE_NAME dapr/dapr --namespace=$DAPR_NAMESPACE --wait --timeout 5m0s --set global.ha.enabled=false --set-string global.tag=dev-linux-amd64 --set-string global.registry=$DAPR_REGISTRY --set global.logAsJson=true --set global.daprControlPlaneOs=linux --set global.daprControlPlaneArch=amd64 --set dapr_placement.logLevel=debug --set dapr_sidecar_injector.sidecarImagePullPolicy=Always --set global.imagePullPolicy=Always --set global.mtls.enabled=true --set dapr_placement.cluster.forceInMemoryLog=true
 ```
 
-### Install DAPR Pub sub with MQTTE4K component
+### Install DAPR Pub sub MQTTE4K component
 Visit [this](https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component) link for more information about Dapr and Pub-Sub component.
 
 ```
