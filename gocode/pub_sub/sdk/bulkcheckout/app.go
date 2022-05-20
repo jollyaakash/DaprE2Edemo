@@ -16,7 +16,7 @@ var (
 
 func main() {
 	// Wait few seconds for Dapr side car http server to be up
-	time.Sleep(5 * time.Second)
+	time.Sleep(10 * time.Second)
 
 	client, err := dapr.NewClient()
 	if err != nil {
