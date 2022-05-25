@@ -24,9 +24,6 @@ spec:
       containers:
       - name: publisher
         image: dmqttdemo.azurecr.io/dapr/pubsubexample_bulkpub:latest
-        volumeMounts:
-          - name: iotedge-spiffe-agent-socket
-            mountPath: /run/iotedge/sockets/
       volumes:
       - name: iotedge-spiffe-agent-socket
         hostPath:
