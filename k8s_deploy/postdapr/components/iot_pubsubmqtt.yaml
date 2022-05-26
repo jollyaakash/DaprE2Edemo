@@ -17,6 +17,8 @@ spec:
     value: "true"
   - name: backOffMaxRetries
     value: "0"
+  - name: keepAlive
+    value: "100"
   - name: spiffeSocketPath
     value: "/home/nonroot/sockets/workloadapi.sock"
 scopes:
