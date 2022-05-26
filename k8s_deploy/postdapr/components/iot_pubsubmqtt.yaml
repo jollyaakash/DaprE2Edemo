@@ -21,6 +21,3 @@ spec:
     value: "100"
   - name: spiffeSocketPath
     value: "/home/nonroot/sockets/workloadapi.sock"
-scopes:
-  - orderprocessing
-  - checkout
