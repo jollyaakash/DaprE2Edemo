@@ -19,7 +19,7 @@ spec:
         dapr.io/app-port: "6001"
         dapr.io/app-protocol: "http"
         dapr.io/log-level: "debug"
-        dapr.io/side-volume-mounts: "iotedge-spiffe-agent-socket=/home/nonroot/sockets/"
+        dapr.io/side-volume-mounts: "iotedge-spiffe-agent-socket=/run/iotedge/sockets/"
         dapr.io/side-volume-mounts-read-write: "true"
     spec:
       containers:
