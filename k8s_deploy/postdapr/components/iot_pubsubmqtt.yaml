@@ -20,4 +20,4 @@ spec:
   - name: keepAlive
     value: "100"
   - name: spiffeSocketPath
-    value: "/home/nonroot/sockets/workloadapi.sock"
+    value: "/run/iotedge/sockets/workloadapi.sock"
