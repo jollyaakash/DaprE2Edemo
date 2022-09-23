@@ -1,0 +1,26 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: orderpubsub
+  namespace: default
+spec:
+  type: pubsub.mqtte4k
+  version: v1
+  initTimeout: 1m
+  metadata:
+  - name: url
+    value: "azedge-dmqtt-frontend:1883"
+  - name: qos
+    value: 1
+  - name: retain
+    value: "false"
+  - name: cleanSession
+    value: "true"
+  - name: backOffMaxRetries
+    value: "0"
+  - name: keepAlive
+    value: "300"
+  - name: spiffeSocketPath
+    value: "/run/azedge/sockets/workloadapi.sock"
+  - name: spiffeBrokerAudience
+    value: "spiffe://azedge/mqttbroker"
